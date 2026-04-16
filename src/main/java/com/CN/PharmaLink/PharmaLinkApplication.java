@@ -1,13 +1,13 @@
-package com.CN.StoreFinder;
+package com.CN.PharmaLink;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StoreFinderApplication {
+public class PharmaLinkApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StoreFinderApplication.class, args);
+		SpringApplication.run(PharmaLinkApplication.class, args);
 	}
 
 }

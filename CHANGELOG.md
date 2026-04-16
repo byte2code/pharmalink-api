@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## [v3.0.0] - 2026-04-16
+
+### Summary
+Third version of the PharmaLink API that reconnects the project to the PharmaLink domain and adds external store-finder integration through a dedicated communicator.
+
+### Highlights
+
+- Added `StoreFinderCommunicator` for calling the external store-finder service.
+- Added `GET /user/getNearestStores/{userId}/{distance}/{token}` for distance-based store lookup through PharmaLink.
+- Added `GET /user/getStoresWithMedicine/{medicine}/{token}` for medicine-based filtering through PharmaLink.
+- Added a `RestTemplate` bean to the security configuration for service communication.
+- Refreshed the README to position the project as a JWT-secured gateway for location-aware pharmacy lookup.
+
+### Notes
+
+This version expands the project from standalone user management into a simple cross-service pharmacy-discovery workflow.
+
 ## [v2.0.0] - 2026-04-16
 
 ### Summary

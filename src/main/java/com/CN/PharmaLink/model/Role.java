@@ -1,4 +1,4 @@
-package com.CN.StoreFinder.model;
+package com.CN.PharmaLink.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +14,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String roleName;
 
 }
+

@@ -1,6 +1,6 @@
-package com.CN.StoreFinder.security;
+package com.CN.PharmaLink.security;
 
-import com.CN.StoreFinder.repository.UserRepository;
+import com.CN.PharmaLink.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
