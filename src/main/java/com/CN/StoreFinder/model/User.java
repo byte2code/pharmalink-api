@@ -1,4 +1,4 @@
-package com.CN.PharmaLink.model;
+package com.CN.StoreFinder.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class User implements UserDetails{
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

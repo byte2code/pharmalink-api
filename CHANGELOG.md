@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## [v2.0.0] - 2026-04-16
+
+### Summary
+Second version of the PharmaLink API that adds the actual medical-store finder module with nearest-store and medicine-based lookup flows.
+
+### Highlights
+
+- Added `MedicalStore` entity and repository support.
+- Added `MedicalStoreController` and `MedicalStoreService` for store CRUD operations.
+- Added `GET /store/getNearestStores/{userId}/{distance}` for distance-based store discovery.
+- Added `GET /store/getStoresWithMedicine/{medicine}` for medicine-based filtering.
+- Refreshed the README to position the project as a pharmacy store-finder API.
+
+### Notes
+
+This version expands the project from user-location groundwork into a more practical location-aware pharmacy discovery workflow.
+
 ## [v1.0.0] - 2026-04-12
 
 ### Summary

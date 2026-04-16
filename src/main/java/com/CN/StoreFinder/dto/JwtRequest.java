@@ -1,4 +1,4 @@
-package com.CN.PharmaLink.dto;
+package com.CN.StoreFinder.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

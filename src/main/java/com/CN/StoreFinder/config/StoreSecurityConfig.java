@@ -1,6 +1,6 @@
-package com.CN.PharmaLink.config;
+package com.CN.StoreFinder.config;
 
-import com.CN.PharmaLink.jwt.JwtAuthenticationFilter;
+import com.CN.StoreFinder.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,19 +9,18 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class PharmaSecurityConfig {
+public class StoreSecurityConfig {
+
 
 	@Autowired
 	JwtAuthenticationFilter filter;
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception 
 	{
@@ -32,9 +31,7 @@ public class PharmaSecurityConfig {
 			.antMatchers("/user/register","/auth/login").permitAll()
 			.anyRequest()
 			.authenticated()
-			.and()
-			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		
+			.and().httpBasic();
 		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
@@ -43,21 +40,6 @@ public class PharmaSecurityConfig {
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception
 	{
 		return builder.getAuthenticationManager();
-	}
-
-	/* Create bean to implement Pbkdf2PasswordEncoder password encoder with the following properties:
-			1. Iterations: 10000
-			2. hash Width = 256
-			3. Secret: 'pepper'
-	 */
-	
-	@Bean
-	public Pbkdf2PasswordEncoder passwordEncoder() {
-	    String secret = "pepper"; // secret key (pepper)
-	    int iterations = 10000; // number of hashing iterations
-	    int hashWidth = 256; // hash width in bits
-
-	    return new Pbkdf2PasswordEncoder(secret, iterations, hashWidth);
 	}
 
 }

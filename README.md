@@ -1,25 +1,23 @@
 # PharmaLink API
 
-Spring Boot REST API for location-aware user management with MySQL persistence, JWT authentication, and role-based security.
+Spring Boot REST API for finding nearby medical stores with MySQL persistence, JWT-ready security configuration, and location-aware store search.
 
 ## Overview
 
-This project demonstrates a compact Spring Boot API for a pharmacy-link style service. It focuses on secure user registration and login, role-protected user management, and storing user coordinates that can support location-based pharmacy discovery workflows.
+This project demonstrates a compact Spring Boot API for pharmacy-store discovery. It models medical stores with coordinates and medicine availability, then exposes lookup endpoints for nearby stores and medicine-based filtering. It builds on the earlier PharmaLink security and user-location concepts by introducing the actual store-finder module.
 
 ## Concepts and Features Covered
 
 - Spring Boot REST API setup
 - Spring Data JPA repository pattern
 - MySQL-backed persistence
-- Spring Security with JWT authentication
-- Stateless session handling with a custom JWT filter
-- Method-level authorization with `@PreAuthorize`
-- PBKDF2 password encoding with configured pepper, iterations, and hash width
-- Public user registration and token-based login flow
-- Role-backed `UserDetails` integration
-- Coordinate-aware user registration using `xCoordinate` and `yCoordinate`
-- Admin-only user listing endpoint
-- DTO and exception groundwork for external medical-store integration
+- Spring Security configuration with JWT filter integration
+- Location-based nearest-store search using stored user and store coordinates
+- Medicine-availability filtering across medical stores
+- Medical store create, read, update, and delete endpoints
+- DTO-based input handling for store creation and updates
+- Coordinate-aware store records using `xCoordinate` and `yCoordinate`
+- JPA `@ElementCollection` for medicine lists
 
 ## Tech Stack
 
@@ -45,17 +43,16 @@ PharmaLinkTemplate/
 ├── mvnw.cmd
 └── src/
     └── main/
-        ├── java/com/CN/PharmaLink/
+        ├── java/com/CN/StoreFinder/
         │   ├── config/
         │   ├── controller/
         │   ├── dto/
-        │   ├── exceptions/
         │   ├── jwt/
         │   ├── model/
         │   ├── repository/
         │   ├── security/
         │   ├── service/
-        │   └── PharmaLinkApplication.java
+        │   └── StoreFinderApplication.java
         └── resources/
             └── application.yml
 ```
@@ -66,50 +63,39 @@ PharmaLinkTemplate/
 2. Replace the placeholder MySQL values in `src/main/resources/application.yml`.
 3. Run `mvn test`.
 4. Run `mvn spring-boot:run`.
-5. Register a user with `POST /user/register`.
-6. Obtain a JWT with `POST /auth/login`.
-7. Call protected endpoints with `Authorization: Bearer <token>`.
+5. Use the API under `http://localhost:8081`.
 
 Available endpoints:
 
-- `POST /auth/login`
-- `GET /user`
-- `POST /user/register`
+- `POST /store/create`
+- `GET /store/{id}`
+- `GET /store/all`
+- `GET /store/getNearestStores/{userId}/{distance}`
+- `GET /store/getStoresWithMedicine/{medicine}`
+- `PUT /store/update/{id}`
+- `DELETE /store/delete/{id}`
 
-Access notes:
-
-- `/user/register` and `/auth/login` are public
-- `GET /user` is restricted to `ADMIN`
-- newly registered users are currently assigned the `ROLE_ADMIN` authority by the provided service logic
-
-Example request body for registration:
+Example request body for store creation:
 
 ```json
 {
-  "username": "john",
-  "password": "john123",
-  "xcoordinate": 120,
-  "ycoordinate": 340
-}
-```
-
-Example request body for login:
-
-```json
-{
-  "username": "john",
-  "password": "john123"
+  "name": "City Care Pharmacy",
+  "contact": 9876543210,
+  "area": "Sector 18",
+  "xCoordinate": 120,
+  "yCoordinate": 340,
+  "medicines": ["Paracetamol", "Vitamin C", "Insulin"]
 }
 ```
 
 ## Learning Highlights
 
-- Demonstrates JWT-secured Spring Boot APIs with stateless request authentication
-- Shows how PBKDF2 password encoding can be configured explicitly for stronger credential handling
-- Stores user coordinates as a foundation for future location-based pharmacy lookup features
-- Keeps the API compact and focused while still covering authentication, authorization, persistence, and DTO-based input flow
+- Demonstrates a simple location-based search flow using stored user and store coordinates
+- Shows how medicine availability can be modeled with JPA collection mapping
+- Extends a user-location concept into a practical nearby-store lookup API
+- Keeps the project compact while covering CRUD, filtering, and location-driven retrieval
 
 ## GitHub Metadata
 
-- Suggested repository description: `Spring Boot REST API for location-aware user management with MySQL persistence, JWT authentication, and role-based security.`
-- Suggested topics: `java`, `java-17`, `spring-boot`, `spring-security`, `spring-data-jpa`, `mysql`, `rest-api`, `jwt`, `location-based-services`, `pharmacy`, `maven`, `learning-project`, `portfolio-project`
+- Suggested repository description: `Spring Boot REST API for finding nearby medical stores with MySQL persistence, location-aware lookup, and medicine-based filtering.`
+- Suggested topics: `java`, `java-17`, `spring-boot`, `spring-data-jpa`, `mysql`, `rest-api`, `location-based-services`, `store-finder`, `pharmacy`, `jwt`, `maven`, `learning-project`, `portfolio-project`
